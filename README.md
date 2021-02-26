@@ -34,5 +34,7 @@ Frontend:
 5. Fantasy Services
    1. Contests
    2. Salaries
+   3. Roster Management
+   4. Awards and Prizes
 
 ... to be continued ...
