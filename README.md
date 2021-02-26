@@ -21,19 +21,18 @@ Frontend:
 
 # Core Services
 1. System Options
-2. MySportsFeeds API integration
 3. Accounts (user + admin)
 4. Data Acquisition and Management:
-  4.1. Leagues and Seasons
-  4.2. Teams and Divisions
-  4.3. Seasonal Schedules
-  4.4. Persons (Players, Officials, Team/League executives)
-  4.5. Games (scheduling, play-by-play data, etc)
-  4.6. DFS Providers and Slates/Salaries
-  4.7. Odds Providers
-  4.8. Projections (fantasy and real-world)
+   1. MySportsFeeds API integration
+   2. Leagues and Seasons
+   3. Seasonal Schedules
+   4. Persons (Players, Officials, Team/League executives)
+   5. Games (scheduling, play-by-play data, etc)
+   6. DFS Providers and Slates/Salaries
+   7. Odds Providers
+   8. Projections (fantasy and real-world)
 5. Fantasy Services
-  5.1. Contests
-  5.2. Salaries
+   1. Contests
+   2. Salaries
 
 ... to be continued ...
