@@ -6,7 +6,7 @@ A general-use sports backend with local API and reference UI for fantasy sports.
 * It will provide the integrated means to access the MysportsFeeds API.  A valid API key will be needed to enable access, which can be obtained via http://www.mysportsfeeds.com.
 * All data will be persisted in a local database, acquired from the MySportsFeeds API.
 * All of the initially developed services will be free, but future PREMIUM services/features may require the purchase of an additional license key to unlock.
-* **YOU MAY NOT** use this project and its services to share or otherwise redestribute the data, or compete with the MySportsFeeds API in any way.  Anyone found to be violating this condition will have their MySportsFeeds access revoked.
+* **YOU MAY NOT** use this project and its services to share or otherwise redestribute the data, or compete with the MySportsFeeds API in any way.  Anyone found to be violating this condition will have their MySportsFeeds access revoked and possibly further action.
 
 # Code Stack
 Backend:
@@ -25,14 +25,17 @@ Frontend:
 4. Data Acquisition and Management:
    1. MySportsFeeds API integration
    2. Leagues and Seasons
-   3. Seasonal Schedules
-   4. Persons (Players, Officials, Team/League executives)
-   5. Games (scheduling, play-by-play data, etc)
-   6. DFS Providers and Slates/Salaries
-   7. Odds Providers
-   8. Projections (fantasy and real-world)
+   3. Teams and Divisions
+   4. Seasonal Schedules
+   5. Persons (Players, Officials, Team/League executives)
+   6. Games (scheduling, play-by-play data, etc)
+   7. DFS Providers and Slates/Salaries
+   8. Odds Providers
+   9. Projections (fantasy and real-world)
 5. Fantasy Services
    1. Contests
    2. Salaries
+   3. Roster Management
+   4. Awards and Prizes
 
 ... to be continued ...
