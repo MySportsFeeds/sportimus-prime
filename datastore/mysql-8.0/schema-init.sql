@@ -8,7 +8,7 @@ CREATE TABLE sport (
   name varchar(50) NOT NULL,
   abbreviation varchar(10) NOT NULL,
 
-  PRIMARY KEY (ID)
+  PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE league (
@@ -272,3 +272,93 @@ CREATE TABLE game (
   KEY start_datetime (start_datetime),
   KEY end_datetime (end_datetime)
 ) ENGINE=InnoDB;
+
+--
+-- New since March 21st
+--
+CREATE TABLE person_context (
+  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  person_id mediumint(8) unsigned NOT NULL,
+  as_of_date datetime NOT NULL,
+  -- as_of_transaction_id mediumint(8) unsigned,
+  as_of_draft_id smallint(5) unsigned,
+  league_id tinyint(3) unsigned,
+  team_id smallint(5) unsigned,
+  role tinyint(3) unsigned NOT NULL,
+  is_most_recent bit(1) NOT NULL,
+
+  PRIMARY KEY (id),
+  KEY role (role),
+  KEY as_of_date (as_of_date),
+  FOREIGN KEY (person_id) REFERENCES person (id),
+  FOREIGN KEY (league_id) REFERENCES league (id),
+  FOREIGN KEY (team_id) REFERENCES team (id),
+  -- FOREIGN KEY (as_of_transaction_id) REFERENCES transaction (id),
+  FOREIGN KEY (as_of_draft_id) REFERENCES draft (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE player_context (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  player_id mediumint(8) unsigned NOT NULL,
+  person_context_id mediumint(8) unsigned NOT NULL,
+  -- contract_year_id mediumint(8) unsigned,
+  position_id mediumint(8) unsigned NOT NULL,
+  roster_status_id smallint(5) unsigned NOT NULL,
+  height_inches tinyint(3) unsigned,
+  weight smallint(5) unsigned,
+  jersey_number varchar(5),
+  is_rookie bit(1) NOT NULL,
+  injury varchar(100),
+  injury_playing_probability char(1),
+
+  PRIMARY KEY (id),
+  FOREIGN KEY (player_id) REFERENCES player (id),
+  FOREIGN KEY (roster_status_id) REFERENCES roster_status (id),
+  FOREIGN KEY (position_id) REFERENCES position_category (id),
+  -- FOREIGN KEY (contract_year_id) REFERENCES player_contract_year (id),
+  FOREIGN KEY (person_context_id) REFERENCES person_context (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE game_update (
+  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  game_id mediumint(8) unsigned NOT NULL,
+  away_score smallint(5) NOT NULL,
+  home_score smallint(5),
+  periods_complete tinyint(3) unsigned NOT NULL,
+  current_period tinyint(3) unsigned,
+  current_period_type tinyint(3) unsigned,
+  current_period_time_remaining smallint(5) unsigned,
+  current_intermission tinyint(3) unsigned,
+
+  PRIMARY KEY (id),
+  UNIQUE KEY unique_game (game_id),
+  FOREIGN KEY (game_id) REFERENCES game (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE game_official (
+  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  game_id mediumint(8) unsigned NOT NULL,
+  game_update_id mediumint(8) unsigned,
+  person_id mediumint(8) unsigned NOT NULL,
+  official_type varchar(50) NOT NULL,
+
+  PRIMARY KEY (id),
+  FOREIGN KEY (game_id) REFERENCES game (id),
+  FOREIGN KEY (game_update_id) REFERENCES game_update (id),
+  FOREIGN KEY (person_id) REFERENCES person (id)
+) ENGINE=InnoDB;
+
+CREATE TABLE game_player (
+  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  game_id mediumint(8) unsigned NOT NULL,
+  game_update_id bigint(20) unsigned,
+  Player_id mediumint(8) unsigned NOT NULL,
+  IsUnmatched bit(1) NOT NULL,
+
+  PRIMARY KEY (id),
+  UNIQUE KEY unique_game_player (game_id,game_update_id,player_id),
+  FOREIGN KEY (game_id) REFERENCES game (id),
+  FOREIGN KEY (game_update_id) REFERENCES game_update (id),
+  FOREIGN KEY (player_id) REFERENCES player (id)
+) ENGINE=InnoDB;
+
